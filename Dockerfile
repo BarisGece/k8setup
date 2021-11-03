@@ -17,28 +17,28 @@ ARG GHOST_DEFAULT_VERSION
 ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.6}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.8}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.58.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.71.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.21.3}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.22.3}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.6.3}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.7.1}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.2.22}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.3.3}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.16.6}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.17.2}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.0.3}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.0.10}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.31.1}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.35.6}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
 ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.2}"
 ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20210617134741}"
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
-ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.1}"
+ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.2}"
 
 
 LABEL maintainer="baris@dreamgames.com" \
@@ -56,7 +56,7 @@ LABEL maintainer="baris@dreamgames.com" \
       description="dropbox image" \
       version="${VERSION}"
 
-RUN wget -qO - https://github.com/weaveworks/eksctl/releases/download/${EKSCTL_VERSION}/eksctl_Linux_amd64.tar.gz | tar zxvf -
+RUN wget -qO - https://github.com/weaveworks/eksctl/releases/download/v${EKSCTL_VERSION}/eksctl_Linux_amd64.tar.gz | tar zxvf -
 
 # wget -q https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN wget -q https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl
@@ -76,7 +76,7 @@ RUN wget -qO fenix-cli https://github.com/fenixsoft/fenix-cli/releases/download/
 
 RUN wget -qO - https://github.com/github/gh-ost/releases/download/v${GHOST_VERSION}/gh-ost-binary-linux-${GHOST_LNX_BIN_ID}.tar.gz | tar zxvf -
 
-RUN wget -qO - https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/krew.tar.gz | tar zxvf -
+RUN wget -qO - https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/krew-linux_amd64.tar.gz | tar zxvf -
 
 ###################################################
 # ==================  k8setup  ================== #
