@@ -1,6 +1,57 @@
-###################################################
-# ==================  dropbox  ================== #
-###################################################
+#####################################################################################################################################
+# ===========================================================  dropbox  =========================================================== #
+#####################################################################################################################################
+
+# Ubuntu
+## DockerHub                                           : https://hub.docker.com/_/ubuntu
+## DockerHub Docs Github                               : https://github.com/docker-library/docs/tree/master/ubuntu
+## DockerLibrary RepoInfo Github                       : https://github.com/docker-library/repo-info/tree/master/repos/ubuntu
+## DockerLibrary OfficalImages Github                  : https://github.com/docker-library/official-images/blob/master/library/ubuntu
+## Offical Ubuntu Core tarballs - dist-amd64           : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-amd64
+## Offical Ubuntu Core tarballs - dist-amd64 - focal   : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-amd64/focal
+## Offical Ubuntu Core tarballs - dist-arm64v8         : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-arm64v8
+## Offical Ubuntu Core tarballs - dist-arm64v8 - focal : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-arm64v8/focal
+
+# Debian
+## DockerHub                                              : https://hub.docker.com/_/debian
+## DockerHub Docs Github                                  : https://github.com/docker-library/docs/tree/master/debian
+## DockerLibrary RepoInfo Github                          : https://github.com/docker-library/repo-info/tree/master/repos/debian
+## DockerLibrary OfficalImages Github                     : https://github.com/docker-library/official-images/blob/master/library/debian
+## Offical Debian tarballs - dist-amd64                   : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64
+## Offical Debian tarballs - dist-amd64 - bullseye        : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64/bullseye
+## Offical Debian tarballs - dist-amd64 - bullseye-slim   : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64/bullseye/slim
+## Offical Debian tarballs - dist-arm64v8                 : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8
+## Offical Debian tarballs - dist-arm64v8 - bullseye      : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8/bullseye
+## Offical Debian tarballs - dist-arm64v8 - bullseye-slim : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8/bullseye/slim
+
+# Pull docker image for different architecture
+## docker pull --platform linux/arm64 ubuntu:focal
+## docker pull --platform linux/amd64 ubuntu:focal
+
+# Build and run multi-architecture images
+## Multi-CPU architecture    : https://docs.docker.com/desktop/multi-arch/
+## Docker Buildx             : https://docs.docker.com/buildx/working-with-buildx/
+## Docker Buildx Commandline : https://docs.docker.com/engine/reference/commandline/buildx/
+### Run the `docker buildx ls` command to list the existing builders. This displays the default builder, which is our old builder.
+#### docker buildx ls
+### Create a new builder which gives access to the new multi-architecture features.
+#### docker buildx create --name bgcbuilder
+### Switch to the new builder and inspect it.
+#### docker buildx use bgcbuilder
+#### docker buildx inspect --bootstrap
+### Build the Dockerfile with buildx, passing the list of architectures to build for:
+#### docker buildx build --platform linux/amd64,linux/arm64 -t barisgece/k8setup:demo --push or --load.
+### Inspect the image using docker buildx imagetools.
+#### docker buildx imagetools inspect username/demo:latest
+
+### Delete BUILDX Configuration
+#### docker buildx du --> Disk Usage
+#### docker buildx ls --> List builder instances
+#### docker buildx prune -a -f
+#### docker buildx stop [NAME] --> Stop builder instance
+#### docker buildx rm [NAME] --all-inactive --force --> Removes the specified or current builder. 
+#### docker buildx rm --all-inactive --force
+
 FROM ubuntu:focal as dropbox
 
 ARG VERSION_DEFAULT
@@ -16,26 +67,26 @@ ARG GHOST_DEFAULT_VERSION
 ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.10}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.11}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.91.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.97.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.23.5}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.24.0}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.8.1}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.8.2}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.5.2}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.7.0}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.18}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.18.2}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.1.7}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.1.9}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.36.6}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.37.1}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
-ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.3}"
-ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20220225143057}"
+ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.4}"
+ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20220225143506}"
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
 ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.3}"
 
