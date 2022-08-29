@@ -67,26 +67,27 @@ ARG GHOST_DEFAULT_VERSION
 ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.13}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.14}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.101.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.109.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.24.1}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.25.0}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.9.0}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.9.4}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.7.7}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.7.27}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.18.3}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.19}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.2.2}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.2.8}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.37.3}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.38.9}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
-ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.4}"
-ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20220225143506}"
+ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.5}"
+ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20220707162303}"
+
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
 ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.3}"
 
@@ -144,7 +145,7 @@ RUN set -eux; \
       wget -qO terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${ARCH}.zip && unzip -qq terraform.zip;\
       wget -qO terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_${ARCH};\
       wget -qO fenix-cli https://github.com/fenixsoft/fenix-cli/releases/download/v${FENIXCLI_VERSION}/fenix-cli;\
-      wget -qO - https://github.com/github/gh-ost/releases/download/v${GHOST_VERSION}/gh-ost-binary-linux-${GHOST_LNX_BIN_ID}.tar.gz | tar zxvf -; \
+      wget -qO - https://github.com/github/gh-ost/releases/download/v${GHOST_VERSION}/gh-ost-binary-linux-arm64-${GHOST_LNX_BIN_ID}.tar.gz | tar zxvf -; \
       wget -qO - https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/krew-linux_${ARCH}.tar.gz | tar zxvf - && mv krew* krew;\
       ;; \
     'amd64') \
@@ -157,7 +158,7 @@ RUN set -eux; \
       wget -qO terraform.zip https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_${ARCH}.zip && unzip -qq terraform.zip;\
       wget -qO terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v${TERRAGRUNT_VERSION}/terragrunt_linux_${ARCH};\
       wget -qO fenix-cli https://github.com/fenixsoft/fenix-cli/releases/download/v${FENIXCLI_VERSION}/fenix-cli;\
-      wget -qO - https://github.com/github/gh-ost/releases/download/v${GHOST_VERSION}/gh-ost-binary-linux-${GHOST_LNX_BIN_ID}.tar.gz | tar zxvf -; \
+      wget -qO - https://github.com/github/gh-ost/releases/download/v${GHOST_VERSION}/gh-ost-binary-linux-amd64-${GHOST_LNX_BIN_ID}.tar.gz | tar zxvf -; \
       wget -qO - https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/krew-linux_${ARCH}.tar.gz | tar zxvf - && mv krew* krew;\
       ;; \
     *) echo >&2 "error: unsupported architecture '$ARCH' (likely packaging update needed)"; exit 1 ;; \
@@ -250,12 +251,12 @@ ENV GO111MODULE "on"
 
 # Releases
 ## https://github.com/google/go-jsonnet/releases - v0.18.0
-## https://github.com/jsonnet-bundler/jsonnet-bundler/releases - v0.4.0
-## https://github.com/kubernetes-sigs/kustomize/releases - v4.5.5
+## https://github.com/jsonnet-bundler/jsonnet-bundler/releases - v0.5.1
+## https://github.com/kubernetes-sigs/kustomize/releases - v4.5.7
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@v0.18.0 && \
-  go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.4.0 && \
+  go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1 && \
   go install github.com/brancz/gojsontoyaml@latest && \
-  go install sigs.k8s.io/kustomize/kustomize/v4@v4.5.5
+  go install sigs.k8s.io/kustomize/kustomize/v4@v4.5.7
 
 RUN chmod -R 755 /aws
 RUN /aws/install -i /usr/local/aws-cli -b /usr/local/bin
