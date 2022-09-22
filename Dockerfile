@@ -67,19 +67,19 @@ ARG GHOST_DEFAULT_VERSION
 ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.15}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.16}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
 ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.112.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.25.1}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.25.2}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.9.4}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.10.0}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.7.33}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.7.34}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
 ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.19.1}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.2.9}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.3.0}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
 ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.38.12}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
