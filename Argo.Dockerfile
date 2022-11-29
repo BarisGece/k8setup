@@ -5,7 +5,6 @@ FROM ubuntu:focal as awscli
 
 ARG AWSCLI_DEFAULT_VERSION
 ARG KUBECTL_DEFAULT_VERSION
-ARG AWSCLI_DEFAULT_VERSION
 
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
 ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.9.1}"
