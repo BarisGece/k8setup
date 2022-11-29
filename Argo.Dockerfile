@@ -4,9 +4,11 @@
 FROM ubuntu:focal as awscli
 
 ARG AWSCLI_DEFAULT_VERSION
+ARG KUBECTL_DEFAULT_VERSION
 
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
 ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.8.5}"
+ARG KUBECTL_DEFAULT_VERSION
 
 WORKDIR /awscli
 
@@ -25,10 +27,12 @@ RUN set -eux; \
     'arm64') \
       AWSCLI_ARCH='aarch64'; \
       wget -qO awscli.zip https://awscli.amazonaws.com/awscli-exe-linux-${AWSCLI_ARCH}-${AWSCLI_VERSION}.zip && unzip -qq awscli.zip;\
+      wget -q https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/${ARCH}/kubectl;\
       ;; \
     'amd64') \
       AWSCLI_ARCH='x86_64'; \
       wget -qO awscli.zip https://awscli.amazonaws.com/awscli-exe-linux-${AWSCLI_ARCH}-${AWSCLI_VERSION}.zip && unzip -qq awscli.zip;\
+      wget -q https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/${ARCH}/kubectl;\
       ;; \
     *) echo >&2 "error: unsupported architecture '$ARCH' (likely packaging update needed)"; exit 1 ;; \
   esac;
@@ -45,9 +49,12 @@ FROM quay.io/argoproj/kubectl-argo-rollouts:v1.3.1
 USER root
 
 COPY --from=awscli  /awscli/aws/ /aws
+COPY --from=awscli  /awscli/kubectl /usr/local/bin
 
 RUN chmod -R 755 /aws
 RUN /aws/install -i /usr/local/aws-cli -b /usr/local/bin
+
+RUN chmod +x /usr/local/bin/kubectl
 
 WORKDIR /home/argo-rollouts
 
