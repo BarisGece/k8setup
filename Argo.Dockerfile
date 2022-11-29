@@ -5,9 +5,11 @@ FROM ubuntu:focal as awscli
 
 ARG AWSCLI_DEFAULT_VERSION
 ARG KUBECTL_DEFAULT_VERSION
+ARG AWSCLI_DEFAULT_VERSION
 
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.8.5}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.9.1}"
+# Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
 ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.25.4}"
 
 WORKDIR /awscli
