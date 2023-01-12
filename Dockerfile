@@ -68,21 +68,21 @@ ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.17}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.18}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.120.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.124.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.25.4}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.26.0}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.10.2}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.10.3}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.9.1}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.9.14}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.19.3}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.19.5}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.3.5}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.3.7}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.41.0}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.42.7}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
@@ -91,7 +91,7 @@ ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20220707162303}"
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
 ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.3}"
 # Note - Latest version of KUBENT - https://github.com/doitintl/kube-no-trouble/releases
-ENV KUBENT_VERSION="${KUBENT_DEFAULT_VERSION:-0.6.0}"
+ENV KUBENT_VERSION="${KUBENT_DEFAULT_VERSION:-0.7.0}"
 
 LABEL maintainer="baris@dreamgames.com" \
       eksctl.version="${EKSCTL_VERSION}" \
@@ -283,14 +283,20 @@ RUN set -eux; \
   ARCH="$(dpkg --print-architecture)"; ARCH="${ARCH##*-}"; \
   case "$ARCH" in \
     'arm64') \
-      wget -qO - https://github.com/ahmetb/kubectl-tree/releases/download/v0.4.1/kubectl-tree_v0.4.1_linux_arm64.tar.gz | tar zxvf -; \
+      wget -qO - https://github.com/ahmetb/kubectl-tree/releases/download/v0.4.3/kubectl-tree_v0.4.3_linux_arm64.tar.gz | tar zxvf -; \
       rm -f LICENSE; \
-      mkdir -p ~/.krew/store/tree/v0.4.1; \
-      mv kubectl-tree ~/.krew/store/tree/v0.4.1; \
-      ln -s /root/.krew/store/tree/v0.4.1/kubectl-tree kubectl-tree; \
+      mkdir -p ~/.krew/store/tree/v0.4.3; \
+      mv kubectl-tree ~/.krew/store/tree/v0.4.3; \
+      ln -s /root/.krew/store/tree/v0.4.3/kubectl-tree kubectl-tree; \
+      kubectl krew install ctx; \
+      kubectl krew install ns; \
+      kubectl krew install outdated; \
       ;; \
     'amd64') \
       kubectl krew install tree; \
+      kubectl krew install ctx; \
+      kubectl krew install ns; \
+      kubectl krew install outdated; \
       ;; \
     *) echo >&2 "error: unsupported architecture '$ARCH' (likely packaging update needed)"; exit 1 ;; \
   esac;
