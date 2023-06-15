@@ -68,21 +68,21 @@ ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.24}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.25}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.140.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.144.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.27.1}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.27.3}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.11.3}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.12.1}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.11.17}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.12.0}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.20.4}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.20.5}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.4.6}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.5.0}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.45.9}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.46.3}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
@@ -122,6 +122,9 @@ RUN set -eux; \
     openssh-client \
     procps \
     unzip \
+    less \
+    vim \
+    nano \
     ; \
   rm -rf /var/lib/apt/lists/*
 
@@ -260,11 +263,11 @@ ENV GO111MODULE "on"
 # Releases
 ## https://github.com/google/go-jsonnet/releases - v0.20.0
 ## https://github.com/jsonnet-bundler/jsonnet-bundler/releases - v0.5.1
-## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.0.1
+## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.0.3
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@v0.20.0 && \
   go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1 && \
   go install github.com/brancz/gojsontoyaml@latest && \
-  go install sigs.k8s.io/kustomize/kustomize/v5@v5.0.1
+  go install sigs.k8s.io/kustomize/kustomize/v5@v5.0.3
 
 RUN chmod -R 755 /aws
 RUN /aws/install -i /usr/local/aws-cli -b /usr/local/bin
