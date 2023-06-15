@@ -68,7 +68,7 @@ ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.25}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.26}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
 ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.144.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
@@ -122,9 +122,6 @@ RUN set -eux; \
     openssh-client \
     procps \
     unzip \
-    less \
-    vim \
-    nano \
     ; \
   rm -rf /var/lib/apt/lists/*
 
@@ -204,6 +201,9 @@ RUN set -eux; \
     openssh-client \
     procps \
     unzip \
+    less \
+    vim \
+    nano \
     ; \
   rm -rf /var/lib/apt/lists/*
 
