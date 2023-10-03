@@ -68,28 +68,28 @@ ARG GHOST_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.26}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.27}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.144.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.160.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.27.3}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.28.2}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.12.1}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.13.0}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.12.0}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.13.23}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.20.5}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.21.1}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.5.0}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.5.7}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.46.3}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.51.7}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
 ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.5}"
 ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20220707162303}"
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
-ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.3}"
+ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.4}"
 # Note - Latest version of KUBENT - https://github.com/doitintl/kube-no-trouble/releases
 ENV KUBENT_VERSION="${KUBENT_DEFAULT_VERSION:-0.7.0}"
 
@@ -263,11 +263,11 @@ ENV GO111MODULE "on"
 # Releases
 ## https://github.com/google/go-jsonnet/releases - v0.20.0
 ## https://github.com/jsonnet-bundler/jsonnet-bundler/releases - v0.5.1
-## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.0.3
+## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.1.1
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@v0.20.0 && \
   go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1 && \
   go install github.com/brancz/gojsontoyaml@latest && \
-  go install sigs.k8s.io/kustomize/kustomize/v5@v5.0.3
+  go install sigs.k8s.io/kustomize/kustomize/v5@v5.1.1
 
 RUN chmod -R 755 /aws
 RUN /aws/install -i /usr/local/aws-cli -b /usr/local/bin
