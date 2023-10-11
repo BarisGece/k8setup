@@ -7,9 +7,9 @@ ARG AWSCLI_DEFAULT_VERSION
 ARG KUBECTL_DEFAULT_VERSION
 
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.9.1}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.13.25}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.25.4}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.28.2}"
 
 WORKDIR /awscli
 
@@ -42,7 +42,7 @@ RUN set -eux; \
 # Final image for Jenkins
 # https://quay.io/repository/argoproj/kubectl-argo-rollouts?tab=tags
 ####################################################################################################
-FROM quay.io/argoproj/kubectl-argo-rollouts:v1.4.0
+FROM quay.io/argoproj/kubectl-argo-rollouts:v1.6.0
 
 # Use numeric user, allows kubernetes to identify this user as being
 # non-root when we use a security context with runAsNonRoot: true
