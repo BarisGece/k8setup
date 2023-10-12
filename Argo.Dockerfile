@@ -39,6 +39,11 @@ RUN set -eux; \
   esac;
 
 ####################################################################################################
+# busybox image for /bin
+####################################################################################################
+FROM busybox:1.36.1-uclibc as busybox
+
+####################################################################################################
 # Final image for Jenkins
 # https://quay.io/repository/argoproj/kubectl-argo-rollouts?tab=tags
 ####################################################################################################
@@ -49,8 +54,11 @@ FROM quay.io/argoproj/kubectl-argo-rollouts:v1.6.0
 #USER 999
 USER root
 
+# Now copy the static /bin files into base image.
+COPY --from=busybox /bin /bin
+
 COPY --from=awscli  /awscli/aws/ /aws
-COPY --from=awscli  /awscli/kubectl /usr/local/bin
+COPY --from=awscli  /awscli/kubectl /usr/local/bin/
 
 RUN chmod -R 755 /aws
 RUN /aws/install -i /usr/local/aws-cli -b /usr/local/bin
