@@ -65,33 +65,41 @@ ARG TERRAGRUNT_DEFAULT_VERSION
 ARG FENIXCLI_DEFAULT_VERSION
 ARG GHOST_DEFAULT_VERSION
 ARG GHOST_DEFAULT_LNX_BIN_ID
+ARG VITESS_DEFAULT_VERSION
+ARG VITESS_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
+ARG HELMDIFF_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.27}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.28}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.160.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.165.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.28.2}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.29.0}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.13.0}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.13.3}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.13.23}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.15.1}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.21.1}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.21.5}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.5.7}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.6.6}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.51.7}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.54.4}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
-ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.5}"
-ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20220707162303}"
+ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.6}"
+ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20231207144046}"
+# Note - Latest version of VITESS - https://github.com/vitessio/vitess/releases
+ENV VITESS_VERSION="${VITESS_DEFAULT_VERSION:-18.0.1}"
+ENV VITESS_LNX_BIN_ID="${VITESS_DEFAULT_LNX_BIN_ID:-aa72dc8}"
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
 ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.4}"
 # Note - Latest version of KUBENT - https://github.com/doitintl/kube-no-trouble/releases
 ENV KUBENT_VERSION="${KUBENT_DEFAULT_VERSION:-0.7.0}"
+# Note - Latest version of HELMDIFF - https://github.com/databus23/helm-diff/releases
+ENV HELMDIFF_VERSION="${HELMDIFF_DEFAULT_VERSION:-0.7.0}"
 
 LABEL maintainer="baris@dreamgames.com" \
       eksctl.version="${EKSCTL_VERSION}" \
@@ -102,10 +110,13 @@ LABEL maintainer="baris@dreamgames.com" \
       terraform.version="${TERRAFORM_VERSION}" \
       terragrunt.version="${TERRAGRUNT_VERSION}" \
       fenixcli.version="${FENIXCLI_VERSION}" \
+      vitess.version="${VITESS_VERSION}" \
+      vitesslinuxbin.id="${VITESS_LNX_BIN_ID}" \
       ghost.version="${GHOST_VERSION}" \
       ghostlinuxbin.id="${GHOST_LNX_BIN_ID}" \
       krew.version="${KREW_VERSION}" \
       kubent.version="${KUBENT_VERSION}" \
+      helmdiff.version="${HELMDIFF_VERSION}" \
       description="dropbox image" \
       version="${VERSION}"
 
@@ -151,6 +162,7 @@ RUN set -eux; \
       wget -qO - https://github.com/github/gh-ost/releases/download/v${GHOST_VERSION}/gh-ost-binary-linux-${ARCH}-${GHOST_LNX_BIN_ID}.tar.gz | tar zxvf -; \
       wget -qO - https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/krew-linux_${ARCH}.tar.gz | tar zxvf - && mv krew* krew;\
       wget -qO - https://github.com/doitintl/kube-no-trouble/releases/download/${KUBENT_VERSION}/kubent-${KUBENT_VERSION}-linux-${ARCH}.tar.gz | tar zxvf -;\
+      wget -qO - https://github.com/vitessio/vitess/releases/download/v${VITESS_VERSION}/vitess-${VITESS_VERSION}-${VITESS_LNX_BIN_ID}.tar.gz | tar zxvf -; \
       ;; \
     'amd64') \
       AWSCLI_ARCH='x86_64'; \
@@ -165,6 +177,7 @@ RUN set -eux; \
       wget -qO - https://github.com/github/gh-ost/releases/download/v${GHOST_VERSION}/gh-ost-binary-linux-amd64-${GHOST_LNX_BIN_ID}.tar.gz | tar zxvf -; \
       wget -qO - https://github.com/kubernetes-sigs/krew/releases/download/v${KREW_VERSION}/krew-linux_${ARCH}.tar.gz | tar zxvf - && mv krew* krew;\
       wget -qO - https://github.com/doitintl/kube-no-trouble/releases/download/${KUBENT_VERSION}/kubent-${KUBENT_VERSION}-linux-${ARCH}.tar.gz | tar zxvf -;\
+      wget -qO - https://github.com/vitessio/vitess/releases/download/v${VITESS_VERSION}/vitess-${VITESS_VERSION}-${VITESS_LNX_BIN_ID}.tar.gz | tar zxvf -; \
       ;; \
     *) echo >&2 "error: unsupported architecture '$ARCH' (likely packaging update needed)"; exit 1 ;; \
   esac;
@@ -185,8 +198,11 @@ ARG TERRAGRUNT_DEFAULT_VERSION
 ARG FENIXCLI_DEFAULT_VERSION
 ARG GHOST_DEFAULT_VERSION
 ARG GHOST_DEFAULT_LNX_BIN_ID
+ARG VITESS_DEFAULT_VERSION
+ARG VITESS_DEFAULT_LNX_BIN_ID
 ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
+ARG HELMDIFF_DEFAULT_VERSION
 
 RUN set -eux; \
   apt-get update; \
@@ -204,6 +220,7 @@ RUN set -eux; \
     less \
     vim \
     nano \
+    mysql-client \
     ; \
   rm -rf /var/lib/apt/lists/*
 
@@ -228,8 +245,11 @@ LABEL maintainer="baris@dreamgames.com" \
       fenixcli.version="${FENIXCLI_DEFAULT_VERSION}" \
       ghost.version="${GHOST_DEFAULT_VERSION}" \
       ghostlinuxbin.id="${GHOST_DEFAULT_LNX_BIN_ID}" \
+      vitess.version="${VITESS_VERSION}" \
+      vitesslinuxbin.id="${VITESS_LNX_BIN_ID}" \
       krew.version="${KREW_VERSION}" \
       kubent.version="${KUBENT_VERSION}" \
+      helmdiff.version="${HELMDIFF_VERSION}" \
       description="k8setup image" \
       version="${VERSION_DEFAULT}"
 
@@ -244,6 +264,10 @@ COPY --from=dropbox  /dropbox/fenix-cli /usr/local/bin
 COPY --from=dropbox  /dropbox/gh-ost /usr/local/bin
 COPY --from=dropbox  /dropbox/krew /usr/local/bin
 COPY --from=dropbox  /dropbox/kubent /usr/local/bin
+COPY --from=dropbox  /dropbox/vitess-${VITESS_VERSION}-${VITESS_LNX_BIN_ID}/ /usr/local/vitess
+
+# Set Vitess PATH Environemnt Variable
+ENV PATH="/usr/local/vitess/bin:${PATH}"
 
 # Install Krew
 RUN chmod +x /usr/local/bin/krew
@@ -263,11 +287,11 @@ ENV GO111MODULE "on"
 # Releases
 ## https://github.com/google/go-jsonnet/releases - v0.20.0
 ## https://github.com/jsonnet-bundler/jsonnet-bundler/releases - v0.5.1
-## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.1.1
+## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.3.0
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@v0.20.0 && \
   go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1 && \
   go install github.com/brancz/gojsontoyaml@latest && \
-  go install sigs.k8s.io/kustomize/kustomize/v5@v5.1.1
+  go install sigs.k8s.io/kustomize/kustomize/v5@v5.3.0
 
 RUN chmod -R 755 /aws
 RUN /aws/install -i /usr/local/aws-cli -b /usr/local/bin
@@ -303,5 +327,9 @@ RUN set -eux; \
       ;; \
     *) echo >&2 "error: unsupported architecture '$ARCH' (likely packaging update needed)"; exit 1 ;; \
   esac;
+
+# Install HELM plugins
+RUN set -eux; \
+  helm plugin install https://github.com/databus23/helm-diff --version ${HELMDIFF_VERSION};
 
 ENTRYPOINT ["/bin/bash"]
