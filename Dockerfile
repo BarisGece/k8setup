@@ -110,10 +110,10 @@ LABEL maintainer="baris@dreamgames.com" \
       terraform.version="${TERRAFORM_VERSION}" \
       terragrunt.version="${TERRAGRUNT_VERSION}" \
       fenixcli.version="${FENIXCLI_VERSION}" \
-      vitess.version="${VITESS_VERSION}" \
-      vitesslinuxbin.id="${VITESS_LNX_BIN_ID}" \
       ghost.version="${GHOST_VERSION}" \
       ghostlinuxbin.id="${GHOST_LNX_BIN_ID}" \
+      vitess.version="${VITESS_VERSION}" \
+      vitesslinuxbin.id="${VITESS_LNX_BIN_ID}" \
       krew.version="${KREW_VERSION}" \
       kubent.version="${KUBENT_VERSION}" \
       helmdiff.version="${HELMDIFF_VERSION}" \
@@ -245,8 +245,8 @@ LABEL maintainer="baris@dreamgames.com" \
       fenixcli.version="${FENIXCLI_DEFAULT_VERSION}" \
       ghost.version="${GHOST_DEFAULT_VERSION}" \
       ghostlinuxbin.id="${GHOST_DEFAULT_LNX_BIN_ID}" \
-      vitess.version="${VITESS_VERSION}" \
-      vitesslinuxbin.id="${VITESS_LNX_BIN_ID}" \
+      vitess.version="${VITESS_DEFAULT_VERSION}" \
+      vitesslinuxbin.id="${VITESS_DEFAULT_LNX_BIN_ID}" \
       krew.version="${KREW_VERSION}" \
       kubent.version="${KUBENT_VERSION}" \
       helmdiff.version="${HELMDIFF_VERSION}" \
@@ -264,7 +264,7 @@ COPY --from=dropbox  /dropbox/fenix-cli /usr/local/bin
 COPY --from=dropbox  /dropbox/gh-ost /usr/local/bin
 COPY --from=dropbox  /dropbox/krew /usr/local/bin
 COPY --from=dropbox  /dropbox/kubent /usr/local/bin
-COPY --from=dropbox  /dropbox/vitess-${VITESS_VERSION}-${VITESS_LNX_BIN_ID}/ /usr/local/vitess
+COPY --from=dropbox  /dropbox/vitess-${VITESS_DEFAULT_VERSION}-${VITESS_DEFAULT_LNX_BIN_ID}/ /usr/local/vitess
 
 # Set Vitess PATH Environemnt Variable
 ENV PATH="/usr/local/vitess/bin:${PATH}"
@@ -330,6 +330,6 @@ RUN set -eux; \
 
 # Install HELM plugins
 RUN set -eux; \
-  helm plugin install https://github.com/databus23/helm-diff --version ${HELMDIFF_VERSION};
+  helm plugin install https://github.com/databus23/helm-diff --version ${HELMDIFF_DEFAULT_VERSION};
 
 ENTRYPOINT ["/bin/bash"]
