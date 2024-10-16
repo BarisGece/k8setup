@@ -1,7 +1,7 @@
 ####################################################################################################
 # Install AWSCLI
 ####################################################################################################
-FROM ubuntu:focal as awscli
+FROM ubuntu:focal AS awscli
 
 ARG AWSCLI_DEFAULT_VERSION
 ARG KUBECTL_DEFAULT_VERSION
