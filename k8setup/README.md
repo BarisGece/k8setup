@@ -1,6 +1,4 @@
-# Argo Rollout - Progressive Delivery on Kubernetes
-
-[GitHub](https://github.com/argoproj/argo-rollouts)
+# k8setup - Operation Base
 
 ## Create Image
 
