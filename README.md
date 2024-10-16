@@ -1,7 +1,11 @@
-# k8setup
+# Images
+
+## k8setup
+
 **eksctl** development &amp; **operation base** image
 
-## v0.1.29
+### v0.1.29
+
 - Ubuntu version updated from **focal** to **noble**
 - EKSCTL 0.165.0 -> 0.192.0
 - KUBECTL_VERSION 1.29.0 -> 1.31.0
@@ -23,8 +27,14 @@
 - kubectl-tree 0.4.3 -> 0.4.3
 - helmdiff 3.8.1 -> 3.9.11
 
-# argo-rollouts
+## argo-rollouts
+
 **argo-rollouts** &amp; **AWSCLI** &amp; **kubectl** image
 
-# nerdctl
+## argocd
+
+**argocd** &amp; **AWSCLI** &amp; **kubectl** image
+
+## nerdctl
+
 **nerdctl** &amp; **AWSCLI** image
