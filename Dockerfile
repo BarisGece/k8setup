@@ -1,4 +1,4 @@
-#####################################################################################################################################
+####################################################################################################################################
 # ===========================================================  dropbox  =========================================================== #
 #####################################################################################################################################
 
@@ -7,10 +7,7 @@
 ## DockerHub Docs Github                               : https://github.com/docker-library/docs/tree/master/ubuntu
 ## DockerLibrary RepoInfo Github                       : https://github.com/docker-library/repo-info/tree/master/repos/ubuntu
 ## DockerLibrary OfficalImages Github                  : https://github.com/docker-library/official-images/blob/master/library/ubuntu
-## Offical Ubuntu Core tarballs - dist-amd64           : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-amd64
-## Offical Ubuntu Core tarballs - dist-amd64 - focal   : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-amd64/focal
-## Offical Ubuntu Core tarballs - dist-arm64v8         : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-arm64v8
-## Offical Ubuntu Core tarballs - dist-arm64v8 - focal : https://github.com/tianon/docker-brew-ubuntu-core/tree/dist-arm64v8/focal
+## Offical Ubuntu Base                                 : https://git.launchpad.net/cloud-images/+oci/ubuntu-base
 
 # Debian
 ## DockerHub                                              : https://hub.docker.com/_/debian
@@ -18,11 +15,11 @@
 ## DockerLibrary RepoInfo Github                          : https://github.com/docker-library/repo-info/tree/master/repos/debian
 ## DockerLibrary OfficalImages Github                     : https://github.com/docker-library/official-images/blob/master/library/debian
 ## Offical Debian tarballs - dist-amd64                   : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64
-## Offical Debian tarballs - dist-amd64 - bullseye        : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64/bullseye
-## Offical Debian tarballs - dist-amd64 - bullseye-slim   : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64/bullseye/slim
+## Offical Debian tarballs - dist-amd64 - trixie          : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64/trixie
+## Offical Debian tarballs - dist-amd64 - trixie-slim     : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-amd64/trixie/slim
 ## Offical Debian tarballs - dist-arm64v8                 : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8
-## Offical Debian tarballs - dist-arm64v8 - bullseye      : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8/bullseye
-## Offical Debian tarballs - dist-arm64v8 - bullseye-slim : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8/bullseye/slim
+## Offical Debian tarballs - dist-arm64v8 - trixie        : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8/trixie
+## Offical Debian tarballs - dist-arm64v8 - trixie-slim   : https://github.com/debuerreotype/docker-debian-artifacts/tree/dist-arm64v8/trixie/slim
 
 # Pull docker image for different architecture
 ## docker pull --platform linux/arm64 ubuntu:focal
@@ -52,7 +49,7 @@
 #### docker buildx rm [NAME] --force --> Removes the specified or current builder. 
 #### docker buildx rm --all-inactive --force
 
-FROM ubuntu:focal as dropbox
+FROM ubuntu:noble as dropbox
 
 ARG VERSION_DEFAULT
 ARG EKSCTL_DEFAULT_VERSION
@@ -71,35 +68,35 @@ ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
 ARG HELMDIFF_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.28}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.29}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.165.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.192.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.29.0}"
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.31.0}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.13.3}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.16.2}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.15.1}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.18.7}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.21.5}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.23.2}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.6.6}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.9.7}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.54.4}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.68.2}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
 ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.6}"
 ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20231207144046}"
 # Note - Latest version of VITESS - https://github.com/vitessio/vitess/releases
-ENV VITESS_VERSION="${VITESS_DEFAULT_VERSION:-18.0.1}"
-ENV VITESS_LNX_BIN_ID="${VITESS_DEFAULT_LNX_BIN_ID:-aa72dc8}"
+ENV VITESS_VERSION="${VITESS_DEFAULT_VERSION:-20.0.2}"
+ENV VITESS_LNX_BIN_ID="${VITESS_DEFAULT_LNX_BIN_ID:-2592c59}"
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
 ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.4}"
 # Note - Latest version of KUBENT - https://github.com/doitintl/kube-no-trouble/releases
-ENV KUBENT_VERSION="${KUBENT_DEFAULT_VERSION:-0.7.0}"
+ENV KUBENT_VERSION="${KUBENT_DEFAULT_VERSION:-0.7.3}"
 # Note - Latest version of HELMDIFF - https://github.com/databus23/helm-diff/releases
-ENV HELMDIFF_VERSION="${HELMDIFF_DEFAULT_VERSION:-0.7.0}"
+ENV HELMDIFF_VERSION="${HELMDIFF_DEFAULT_VERSION:-3.9.11}"
 
 LABEL maintainer="baris@dreamgames.com" \
       eksctl.version="${EKSCTL_VERSION}" \
@@ -286,12 +283,12 @@ ENV GO111MODULE "on"
 
 # Releases
 ## https://github.com/google/go-jsonnet/releases - v0.20.0
-## https://github.com/jsonnet-bundler/jsonnet-bundler/releases - v0.5.1
-## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.3.0
+## https://github.com/jsonnet-bundler/jsonnet-bundler/releases - v0.6.0
+## https://github.com/kubernetes-sigs/kustomize/releases - v5@v5.5.0
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@v0.20.0 && \
-  go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.5.1 && \
+  go install github.com/jsonnet-bundler/jsonnet-bundler/cmd/jb@v0.6.0 && \
   go install github.com/brancz/gojsontoyaml@latest && \
-  go install sigs.k8s.io/kustomize/kustomize/v5@v5.3.0
+  go install sigs.k8s.io/kustomize/kustomize/v5@v5.5.0
 
 RUN chmod -R 755 /aws
 RUN /aws/install -i /usr/local/aws-cli -b /usr/local/bin
