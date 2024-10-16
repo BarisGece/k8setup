@@ -1,7 +1,7 @@
 ###################################################
 # ==================  dropbox  ================== #
 ###################################################
-FROM ubuntu:focal as dropbox
+FROM ubuntu:focal AS dropbox
 
 ARG AWSCLI_DEFAULT_VERSION
 ARG NERDCTL_DEFAULT_VERSION
