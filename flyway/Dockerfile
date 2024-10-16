@@ -6,7 +6,6 @@ ARG FLYWAY_DEFAULT_VERSION
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
 ENV FLYWAY_VERSION="${FLYWAY_DEFAULT_VERSION:-10.20.0}"
 
-
 # Set environment variables to non-interactive to avoid prompts during installations
 ENV DEBIAN_FRONTEND=noninteractive
 
