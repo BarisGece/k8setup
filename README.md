@@ -38,3 +38,7 @@
 ## nerdctl
 
 **nerdctl** &amp; **AWSCLI** image
+
+## flyway
+
+**flyway** &amp; **cqlsh** &amp; **redis-tools** image
