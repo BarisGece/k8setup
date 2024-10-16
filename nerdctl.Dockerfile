@@ -46,6 +46,11 @@ RUN tar Czxvf /usr/local/bin/ nerdctl-${NERDCTL_VERSION}-linux-amd64.tar.gz
 ###################################################
 FROM ubuntu:focal
 
+RUN set -eux; \
+  apt-get update; \
+  apt-get install -y --no-install-recommends \
+    ca-certificates
+
 COPY --from=dropbox /dropbox/aws ./aws
 COPY --from=dropbox /usr/local/bin/nerdctl /usr/local/bin/nerdctl
 
