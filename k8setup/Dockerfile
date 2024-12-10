@@ -1,4 +1,4 @@
-####################################################################################################################################
+#####################################################################################################################################
 # ===========================================================  dropbox  =========================================================== #
 #####################################################################################################################################
 
@@ -68,35 +68,35 @@ ARG KREW_DEFAULT_VERSION
 ARG KUBENT_DEFAULT_VERSION
 ARG HELMDIFF_DEFAULT_VERSION
 
-ENV VERSION="${VERSION_DEFAULT:-0.1.29}"
+ENV VERSION="${VERSION_DEFAULT:-0.1.30}"
 # Note - Latest version of EKSCTL - https://github.com/weaveworks/eksctl/releases
-ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.192.0}"
+ENV EKSCTL_VERSION="${EKSCTL_DEFAULT_VERSION:-0.197.0}"
 # Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
 ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.31.0}"
 # Note - Latest version of HELM - https://github.com/kubernetes/helm/releases
-ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.16.2}"
+ENV HELM_VERSION="${HELM_DEFAULT_VERSION:-3.16.3}"
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
 ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.18.7}"
 # Note - Latest version of GOLANG - https://golang.org/doc/install
-ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.23.2}"
+ENV GOLANG_VERSION="${GOLANG_DEFAULT_VERSION:-1.23.4}"
 # Note - Latest version of TERRAFORM - https://github.com/hashicorp/terraform/releases
-ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.9.7}"
+ENV TERRAFORM_VERSION="${TERRAFORM_DEFAULT_VERSION:-1.10.1}"
 # Note - Latest version of TERRAGRUNT - https://github.com/gruntwork-io/terragrunt/releases
-ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.68.2}"
+ENV TERRAGRUNT_VERSION="${TERRAGRUNT_DEFAULT_VERSION:-0.69.9}"
 # Note - Latest version of FENIXCLI - https://github.com/fenixsoft/fenix-cli/releases
 ENV FENIXCLI_VERSION="${FENIXCLI_DEFAULT_VERSION:-1.1.20210707}"
 # Note - Latest version of GH-OST - https://github.com/github/gh-ost/releases
 ENV GHOST_VERSION="${GHOST_DEFAULT_VERSION:-1.1.6}"
 ENV GHOST_LNX_BIN_ID="${GHOST_DEFAULT_LNX_BIN_ID:-20231207144046}"
 # Note - Latest version of VITESS - https://github.com/vitessio/vitess/releases
-ENV VITESS_VERSION="${VITESS_DEFAULT_VERSION:-20.0.2}"
-ENV VITESS_LNX_BIN_ID="${VITESS_DEFAULT_LNX_BIN_ID:-2592c59}"
+ENV VITESS_VERSION="${VITESS_DEFAULT_VERSION:-21.0.1}"
+ENV VITESS_LNX_BIN_ID="${VITESS_DEFAULT_LNX_BIN_ID:-3d4f41d}"
 # Note - Latest version of KREW - https://github.com/kubernetes-sigs/krew/releases
 ENV KREW_VERSION="${KREW_DEFAULT_VERSION:-0.4.4}"
 # Note - Latest version of KUBENT - https://github.com/doitintl/kube-no-trouble/releases
 ENV KUBENT_VERSION="${KUBENT_DEFAULT_VERSION:-0.7.3}"
 # Note - Latest version of HELMDIFF - https://github.com/databus23/helm-diff/releases
-ENV HELMDIFF_VERSION="${HELMDIFF_DEFAULT_VERSION:-3.9.11}"
+ENV HELMDIFF_VERSION="${HELMDIFF_DEFAULT_VERSION:-3.9.12}"
 
 LABEL maintainer="baris@dreamgames.com" \
       eksctl.version="${EKSCTL_VERSION}" \
