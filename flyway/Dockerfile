@@ -2,20 +2,29 @@
 FROM debian:buster-slim
 
 ARG FLYWAY_DEFAULT_VERSION
+ARG CQLSH_DEFAULT_VERSION
+ARG CQLSH_EXPANSION_DEFAULT_VERSION
 
-# Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV FLYWAY_VERSION="${FLYWAY_DEFAULT_VERSION:-10.20.0}"
+# Note - Latest version of FLYWAY - https://github.com/flyway/flyway/releases
+ENV FLYWAY_VERSION="${FLYWAY_DEFAULT_VERSION:-11.9.2}"
+# Note - Latest version of CQLSH - https://pypi.org/project/cqlsh/
+ENV CQLSH_VERSION="${CQLSH_DEFAULT_VERSION:-6.2.0}"
+# Note - Latest version of CQLSH_EXPANSION - https://pypi.org/project/cqlsh-expansion/
+ENV CQLSH_EXPANSION_VERSION="${CQLSH_EXPANSION_DEFAULT_VERSION:-0.9.6}"
 
 # Set environment variables to non-interactive to avoid prompts during installations
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and install required packages
 RUN apt-get update && \
-    apt-get install -f -y git redis-tools curl gnupg2 lsb-release apt-transport-https
+    apt-get install -f -y apt-transport-https curl git gnupg2 lsb-release redis-tools
 
 # Install cqlsh
 RUN apt-get install python3-pip -y && \
-    pip3 install -U cqlsh
+    pip3 install -U cqlsh==${CQLSH_VERSION} && \
+    pip3 install cqlsh-expansion==${CQLSH_EXPANSION_VERSION}
+
+RUN cqlsh-expansion.init
 
 # Install Flyway
 RUN set -eux; \

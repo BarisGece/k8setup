@@ -16,11 +16,11 @@ docker buildx use bgcbuilder
 docker buildx inspect --bootstrap
 
 # Build the Dockerfile with buildx, passing the list of architectures to build for:
-docker buildx build --platform linux/amd64 -t barisgece/super-flyway:10.20.0 --push . # or --load .
-# docker buildx build --platform linux/amd64,linux/arm64 -t barisgece:super-flyway_10.20.0  --push . # or --load .
+docker buildx build --platform linux/amd64 -t barisgece/super-flyway:11.9.2 --push . # or --load .
+# docker buildx build --platform linux/amd64,linux/arm64 -t barisgece:super-flyway_11.9.2  --push . # or --load .
 
 # Inspect the image using docker buildx imagetools.
-docker buildx imagetools inspect barisgece/super-flyway:10.20.0
+docker buildx imagetools inspect barisgece/super-flyway:11.9.2
 
 ### Delete BUILDX Configuration
 docker buildx du # --> Disk Usage
