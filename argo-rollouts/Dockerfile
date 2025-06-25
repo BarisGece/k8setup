@@ -8,11 +8,11 @@ ARG KUBECTL_DEFAULT_VERSION
 ARG KUBECTL_ARGO_ROLLOUTS_DEFAULT_VERSION
 
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.18.7}"
-# Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.31.0}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.27.42}"
+# Note - Latest version of KUBECTL - https://dl.k8s.io/release/stable.txt
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.33.2}"
 # Note - Latest version of KUBECTL - https://github.com/argoproj/argo-rollouts/releases
-ENV KUBECTL_ARGO_ROLLOUTS_VERSION="${KUBECTL_ARGO_ROLLOUTS_DEFAULT_VERSION:-1.7.2}"
+ENV KUBECTL_ARGO_ROLLOUTS_VERSION="${KUBECTL_ARGO_ROLLOUTS_DEFAULT_VERSION:-1.8.3}"
 
 WORKDIR /awscli
 
