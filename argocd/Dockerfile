@@ -8,11 +8,11 @@ ARG KUBECTL_DEFAULT_VERSION
 ARG ARGOCD_DEFAULT_VERSION
 
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.18.7}"
-# Note - Latest version of KUBECTL - https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.31.0}"
-# Note - Latest version of KUBECTL - https://github.com/argoproj/argo-rollouts/releases
-ENV ARGOCD_VERSION="${ARGOCD_DEFAULT_VERSION:-2.12.4}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.27.42}"
+# Note - Latest version of KUBECTL - https://dl.k8s.io/release/stable.txt
+ENV KUBECTL_VERSION="${KUBECTL_DEFAULT_VERSION:-1.33.2}"
+# Note - Latest version of ARGOCD - https://github.com/argoproj/argo-cd/releases
+ENV ARGOCD_VERSION="${ARGOCD_DEFAULT_VERSION:-3.0.6}"
 
 WORKDIR /awscli
 
@@ -49,6 +49,13 @@ RUN set -eux; \
 ####################################################################################################
 FROM ubuntu:noble
 USER root
+
+RUN set -eux; \
+  apt-get update; \
+  apt-get install -y --no-install-recommends \
+    ca-certificates \
+    jq \
+    yq
 
 COPY --from=awscli  /awscli/aws/ /aws
 COPY --from=awscli  /awscli/kubectl /usr/local/bin/
