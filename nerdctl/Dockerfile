@@ -7,9 +7,9 @@ ARG AWSCLI_DEFAULT_VERSION
 ARG NERDCTL_DEFAULT_VERSION
 
 # Note - Latest version of AWS - https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst
-ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.18.7}"
+ENV AWSCLI_VERSION="${AWSCLI_DEFAULT_VERSION:-2.27.42}"
 # Note - Latest version of nerdctl - https://github.com/containerd/nerdctl/releases
-ENV NERDCTL_VERSION="${NERDCTL_DEFAULT_VERSION:-1.7.7}"
+ENV NERDCTL_VERSION="${NERDCTL_DEFAULT_VERSION:-2.1.2}"
 
 WORKDIR /dropbox
 

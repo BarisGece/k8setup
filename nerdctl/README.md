@@ -16,12 +16,12 @@ docker buildx use bgcbuilder
 docker buildx inspect --bootstrap
 
 # Build the Dockerfile with buildx, passing the list of architectures to build for:
-docker buildx build --platform linux/amd64,linux/arm64 -t barisgece/cinc:v1.7.7 --push . # or --load .
-docker buildx build --platform linux/amd64,linux/arm64 -t barisgece/nerdctl:v1.7.7 --push . # or --load .
+docker buildx build --platform linux/amd64,linux/arm64 -t barisgece/cinc:v2.1.2 --push . # or --load .
+docker buildx build --platform linux/amd64,linux/arm64 -t barisgece/nerdctl:v2.1.2 --push . # or --load .
 
 # Inspect the image using docker buildx imagetools.
-docker buildx imagetools inspect barisgece/cinc:v1.7.7
-docker buildx imagetools inspect barisgece/nerdctl:v1.7.7
+docker buildx imagetools inspect barisgece/cinc:v2.1.2
+docker buildx imagetools inspect barisgece/nerdctl:v2.1.2
 
 ### Delete BUILDX Configuration
 docker buildx du # --> Disk Usage
